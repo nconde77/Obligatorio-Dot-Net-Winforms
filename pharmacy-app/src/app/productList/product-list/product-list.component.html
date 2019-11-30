@@ -1,0 +1,22 @@
+<div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="title-section text-center col-12">
+          <h2 class="text-uppercase">Popular Products</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 col-lg-4 text-center item mb-4"  *ngFor="let product of products;">
+          <a href="shop-single.html"> <img src={{product.image}} alt="Image"></a>
+          <h3 class="text-dark"><a href="shop-single.html">{{product.name}}</a></h3>
+          <p class="price">${{product.price}}</p>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <a href="shop.html" class="btn btn-primary px-4 py-3">View All Products</a>
+        </div>
+      </div>
+    </div>
+  </div>
