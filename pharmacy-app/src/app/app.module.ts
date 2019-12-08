@@ -10,6 +10,14 @@ import { FooterComponent } from './footer/footer.component';
 import { ProductSliderComponent } from './product-slider/product-slider.component';
 import { CartComponent } from './cart/cart.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './register/register.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -20,11 +28,19 @@ import { HomeComponent } from './home/home.component';
     FooterComponent,
     ProductSliderComponent,
     CartComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -39,6 +39,8 @@
 
                             </ul>
                         </li>
+                        <li><a *ngIf="loginService && !loginService.isAuthenticated" routerLink="/login" routerLinkActive="active">Login</a></li>
+                        <li><a *ngIf="!loginService || loginService.isAuthenticated" (click)="loginService.logout()" routerLink="/" routerLinkActive="active">Logot</a></li>
                         <li><a href="contact.html">Ayuda</a></li>
                         <li><a href="contact.html">Contacto</a></li>
                     </ul>
