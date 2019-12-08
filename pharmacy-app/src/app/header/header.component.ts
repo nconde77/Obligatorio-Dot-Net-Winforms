@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   public loginService: LoginService = null;
 
   construct(loginService: LoginService) {
+    this.loginService = loginService;
     this.loginService.checkAuthenticated();
 
   }

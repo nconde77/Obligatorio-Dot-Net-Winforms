@@ -14,7 +14,7 @@ export class ProductListComponent {
         {image: 'assets/images/product_04.png', name: 'Cetyl Pure', price: '45'},
         {image: 'assets/images/product_05.png', name: 'CLA Core', price: '38'},
         {image: 'assets/images/product_06.png', name: 'Poo Pourri', price: '89'},
-    ]
+    ];
 
 
 }
