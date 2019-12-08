@@ -16,45 +16,39 @@ export function jwtOptionsFactory(storage) {
   };
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LoginService {
 
   public isAuthenticated = false;
   public user: User = null;
 
   // tslint:disable-next-line: max-line-length
-  constructor(public storage: Storage, public http: HttpClient, private jwtHelper: JwtHelperService) {
+  constructor(public http: HttpClient, private jwtHelper: JwtHelperService) {
 
   }
 
   public checkAuthenticated(): Promise<boolean> {
 
     return new Promise((resolve, reject) => {
-      this.isAuthenticated = true;
-
       // resolve(true);
-      this.storage.get(JWT_ACCESS_TOKEN_NAME)
-        .then((token: any) => {
-          if (token) {
-            if (this.jwtHelper.isTokenExpired(token)) {
-              this.storage.remove(JWT_ACCESS_TOKEN_NAME);
-              this.isAuthenticated = false;
-              console.log('isTokenExpired');
-              resolve(false);
-            } else {
-              this.isAuthenticated = true;
-              console.log('token ok');
-              resolve(true);
-            }
-          } else {
-            this.isAuthenticated = false;
-            resolve(false);
-          }
-        })
-        .catch((reason: any) => {
+      const token = localStorage.getItem(JWT_ACCESS_TOKEN_NAME);
+      if (token) {
+        if (this.jwtHelper.isTokenExpired(token)) {
+          localStorage.removeItem(JWT_ACCESS_TOKEN_NAME);
           this.isAuthenticated = false;
-          reject(false);
-        });
+          console.log('isTokenExpired');
+          resolve(false);
+        } else {
+          this.isAuthenticated = true;
+          console.log('token ok');
+          resolve(true);
+        }
+      } else {
+        this.isAuthenticated = false;
+        resolve(false);
+      }
     });
   }
 
@@ -82,7 +76,7 @@ export class LoginService {
         password
       }).toPromise().then((response: any) => {
         console.dir(response);
-        this.storage.set(JWT_ACCESS_TOKEN_NAME, response.token);
+        localStorage.setItem(JWT_ACCESS_TOKEN_NAME, response.token);
         this.isAuthenticated = true;
         resolve(true);
       })
@@ -97,6 +91,6 @@ export class LoginService {
   public logout() {
     this.isAuthenticated = false;
 
-    return this.storage.remove(JWT_ACCESS_TOKEN_NAME);
+    return localStorage.removeItem(JWT_ACCESS_TOKEN_NAME);
   }
 }
