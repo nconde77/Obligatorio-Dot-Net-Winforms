@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c07fd626ef8f4b99bcca43e70137e096" Name="Diagram1" ZoomLevel="109" DisplayType="true" >
+        <EntityTypeShape EntityType="Model1.Articulo" Width="2" PointX="13.875" PointY="2.375" />
+        <EntityTypeShape EntityType="Model1.NoMedicamento" Width="1.75" PointX="9.125" PointY="5.25" />
+        <InheritanceConnector EntityType="Model1.NoMedicamento" />
+        <EntityTypeShape EntityType="Model1.Medicamento" Width="2.5" PointX="17.125" PointY="5.375" />
+        <InheritanceConnector EntityType="Model1.Medicamento" />
+        <EntityTypeShape EntityType="Model1.Factura" Width="1.875" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="Model1.Linea" Width="1.5" PointX="14.125" PointY="5.375" />
+        <AssociationConnector Association="Model1.ArticuloLinea" />
+        <AssociationConnector Association="Model1.FacturaLinea" />
+        <EntityTypeShape EntityType="Model1.Usuario" Width="1.5" PointX="0.75" PointY="4.75" />
+        <AssociationConnector Association="Model1.UsuarioFactura" />
+        <EntityTypeShape EntityType="Model1.Delivery" Width="2.125" PointX="5.625" PointY="4.875" />
+        <EntityTypeShape EntityType="Model1.Cadete" Width="1.5" PointX="3.375" PointY="1" />
+        <AssociationConnector Association="Model1.CadeteDelivery" />
+        <AssociationConnector Association="Model1.FacturaDelivery" />
+        <EntityTypeShape EntityType="Model1.Categoria" Width="1.5" PointX="5.75" PointY="2.125" />
+        <AssociationConnector Association="Model1.CategoriaNoMedicamento" />
+        <EntityTypeShape EntityType="Model1.Tarjeta" Width="1.5" PointX="5.625" PointY="10.875" />
+        <AssociationConnector Association="Model1.FacturaTarjeta" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

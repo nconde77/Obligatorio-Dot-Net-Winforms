@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PharmacyWeb", "PharmacyWeb\", "{B106EAF8-DC7D-4AB4-93B7-9A5EACC24695}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_49969"
+		Debug.AspNetCompiler.PhysicalPath = "PharmacyWeb\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49969\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_49969"
+		Release.AspNetCompiler.PhysicalPath = "PharmacyWeb\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49969\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49969"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B106EAF8-DC7D-4AB4-93B7-9A5EACC24695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B106EAF8-DC7D-4AB4-93B7-9A5EACC24695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14E0D9BD-CCB2-407F-8B9F-9D2E4CE5766F}
+	EndGlobalSection
+EndGlobal

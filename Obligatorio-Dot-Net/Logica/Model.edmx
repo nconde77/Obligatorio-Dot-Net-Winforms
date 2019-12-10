@@ -1,0 +1,624 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="ArticuloSet" EntityType="Model1.Store.ArticuloSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FacturaSet" EntityType="Model1.Store.FacturaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LineaSet" EntityType="Model1.Store.LineaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UsuarioSet" EntityType="Model1.Store.UsuarioSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DeliverySet" EntityType="Model1.Store.DeliverySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CadeteSet" EntityType="Model1.Store.CadeteSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CategoriaSet" EntityType="Model1.Store.CategoriaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TarjetaSet" EntityType="Model1.Store.TarjetaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArticuloSet_NoMedicamento" EntityType="Model1.Store.ArticuloSet_NoMedicamento" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArticuloSet_Medicamento" EntityType="Model1.Store.ArticuloSet_Medicamento" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ArticuloLinea" Association="Model1.Store.ArticuloLinea">
+      <End Role="Articulo" EntitySet="ArticuloSet" />
+      <End Role="Linea" EntitySet="LineaSet" />
+    </AssociationSet>
+    <AssociationSet Name="FacturaLinea" Association="Model1.Store.FacturaLinea">
+      <End Role="Factura" EntitySet="FacturaSet" />
+      <End Role="Linea" EntitySet="LineaSet" />
+    </AssociationSet>
+    <AssociationSet Name="UsuarioFactura" Association="Model1.Store.UsuarioFactura">
+      <End Role="Usuario" EntitySet="UsuarioSet" />
+      <End Role="Factura" EntitySet="FacturaSet" />
+    </AssociationSet>
+    <AssociationSet Name="CadeteDelivery" Association="Model1.Store.CadeteDelivery">
+      <End Role="Cadete" EntitySet="CadeteSet" />
+      <End Role="Delivery" EntitySet="DeliverySet" />
+    </AssociationSet>
+    <AssociationSet Name="FacturaDelivery" Association="Model1.Store.FacturaDelivery">
+      <End Role="Factura" EntitySet="FacturaSet" />
+      <End Role="Delivery" EntitySet="DeliverySet" />
+    </AssociationSet>
+    <AssociationSet Name="CategoriaNoMedicamento" Association="Model1.Store.CategoriaNoMedicamento">
+      <End Role="Categoria" EntitySet="CategoriaSet" />
+      <End Role="NoRemedio" EntitySet="ArticuloSet_NoMedicamento" />
+    </AssociationSet>
+    <AssociationSet Name="FacturaTarjeta" Association="Model1.Store.FacturaTarjeta">
+      <End Role="Factura" EntitySet="FacturaSet" />
+      <End Role="Tarjeta" EntitySet="TarjetaSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NoMedicamento_inherits_Articulo" Association="Model1.Store.FK_NoMedicamento_inherits_Articulo">
+      <End Role="Articulo" EntitySet="ArticuloSet" />
+      <End Role="NoMedicamento" EntitySet="ArticuloSet_NoMedicamento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Medicamento_inherits_Articulo" Association="Model1.Store.FK_Medicamento_inherits_Articulo">
+      <End Role="Articulo" EntitySet="ArticuloSet" />
+      <End Role="Medicamento" EntitySet="ArticuloSet_Medicamento" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ArticuloSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Marca" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CantidadEnStock" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="Precio" Type="decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FacturaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsuarioId" Type="int" Nullable="false" />
+    <Property Name="Total" Type="decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="TarjetaId" Type="int" Nullable="false" />
+    <Property Name="PagoProcesado" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="SubTotal" Type="decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="CanitidadRecetasBlancas" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="CantidadRecetasControladas" Type="smallint" Nullable="false" DefaultValue="0" />
+    <Property Name="DescuentoAplicado" Type="decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Delivery_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LineaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FacturaId" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="smallint" Nullable="false" DefaultValue="1" />
+    <Property Name="Monto" Type="decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Articulo_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsuarioSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Roles" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DeliverySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaEntregado" Type="datetime" Nullable="true" />
+    <Property Name="FirmaRecibido" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Cadete_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CadeteSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CategoriaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TarjetaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Marca" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descuento" Type="decimal" Nullable="false" DefaultValue="0" />
+  </EntityType>
+  <EntityType Name="ArticuloSet_NoMedicamento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CategoriaId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArticuloSet_Medicamento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Composicion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Indicaciones" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Presentacion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RequiereRecetaControlada" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ArticuloLinea">
+    <End Role="Articulo" Type="Model1.Store.ArticuloSet" Multiplicity="1" />
+    <End Role="Linea" Type="Model1.Store.LineaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Linea">
+        <PropertyRef Name="Articulo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FacturaLinea">
+    <End Role="Factura" Type="Model1.Store.FacturaSet" Multiplicity="1" />
+    <End Role="Linea" Type="Model1.Store.LineaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factura">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Linea">
+        <PropertyRef Name="FacturaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuarioFactura">
+    <End Role="Usuario" Type="Model1.Store.UsuarioSet" Multiplicity="1" />
+    <End Role="Factura" Type="Model1.Store.FacturaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CadeteDelivery">
+    <End Role="Cadete" Type="Model1.Store.CadeteSet" Multiplicity="1" />
+    <End Role="Delivery" Type="Model1.Store.DeliverySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cadete">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Delivery">
+        <PropertyRef Name="Cadete_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FacturaDelivery">
+    <End Role="Factura" Type="Model1.Store.FacturaSet" Multiplicity="*" />
+    <End Role="Delivery" Type="Model1.Store.DeliverySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Delivery">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="Delivery_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CategoriaNoMedicamento">
+    <End Role="Categoria" Type="Model1.Store.CategoriaSet" Multiplicity="1" />
+    <End Role="NoRemedio" Type="Model1.Store.ArticuloSet_NoMedicamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NoRemedio">
+        <PropertyRef Name="CategoriaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FacturaTarjeta">
+    <End Role="Factura" Type="Model1.Store.FacturaSet" Multiplicity="*" />
+    <End Role="Tarjeta" Type="Model1.Store.TarjetaSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Tarjeta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="TarjetaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NoMedicamento_inherits_Articulo">
+    <End Role="Articulo" Type="Model1.Store.ArticuloSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="NoMedicamento" Type="Model1.Store.ArticuloSet_NoMedicamento" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NoMedicamento">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Medicamento_inherits_Articulo">
+    <End Role="Articulo" Type="Model1.Store.ArticuloSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Medicamento" Type="Model1.Store.ArticuloSet_Medicamento" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Medicamento">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ArticuloSet" EntityType="Model1.Articulo" />
+          <EntitySet Name="FacturaSet" EntityType="Model1.Factura" />
+          <EntitySet Name="LineaSet" EntityType="Model1.Linea" />
+          <AssociationSet Name="ArticuloLinea" Association="Model1.ArticuloLinea">
+            <End Role="Articulo" EntitySet="ArticuloSet" />
+            <End Role="Linea" EntitySet="LineaSet" />
+          </AssociationSet>
+          <AssociationSet Name="FacturaLinea" Association="Model1.FacturaLinea">
+            <End Role="Factura" EntitySet="FacturaSet" />
+            <End Role="Linea" EntitySet="LineaSet" />
+          </AssociationSet>
+          <EntitySet Name="UsuarioSet" EntityType="Model1.Usuario" />
+          <AssociationSet Name="UsuarioFactura" Association="Model1.UsuarioFactura">
+            <End Role="Usuario" EntitySet="UsuarioSet" />
+            <End Role="Factura" EntitySet="FacturaSet" />
+          </AssociationSet>
+          <EntitySet Name="DeliverySet" EntityType="Model1.Delivery" />
+          <EntitySet Name="CadeteSet" EntityType="Model1.Cadete" />
+          <AssociationSet Name="CadeteDelivery" Association="Model1.CadeteDelivery">
+            <End Role="Cadete" EntitySet="CadeteSet" />
+            <End Role="Delivery" EntitySet="DeliverySet" />
+          </AssociationSet>
+          <AssociationSet Name="FacturaDelivery" Association="Model1.FacturaDelivery">
+            <End Role="Factura" EntitySet="FacturaSet" />
+            <End Role="Delivery" EntitySet="DeliverySet" />
+          </AssociationSet>
+          <EntitySet Name="CategoriaSet" EntityType="Model1.Categoria" />
+          <AssociationSet Name="CategoriaNoMedicamento" Association="Model1.CategoriaNoMedicamento">
+            <End Role="Categoria" EntitySet="CategoriaSet" />
+            <End Role="NoRemedio" EntitySet="ArticuloSet" />
+          </AssociationSet>
+          <EntitySet Name="TarjetaSet" EntityType="Model1.Tarjeta" />
+          <AssociationSet Name="FacturaTarjeta" Association="Model1.FacturaTarjeta">
+            <End Role="Factura" EntitySet="FacturaSet" />
+            <End Role="Tarjeta" EntitySet="TarjetaSet" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Marca" Type="String" Nullable="false" />
+          <Property Name="CantidadEnStock" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="Precio" Type="Decimal" Nullable="false" DefaultValue="0" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NoMedicamento" BaseType="Model1.Articulo" >
+          <NavigationProperty Name="Categoria" Relationship="Model1.CategoriaNoMedicamento" FromRole="NoRemedio" ToRole="Categoria" />
+          <Property Name="CategoriaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medicamento" BaseType="Model1.Articulo" >
+          <Property Name="Composicion" Type="String" Nullable="false" />
+          <Property Name="Indicaciones" Type="String" Nullable="false" />
+          <Property Name="Presentacion" Type="String" Nullable="false" />
+          <Property Name="RequiereRecetaControlada" Type="Boolean" Nullable="false" DefaultValue="False" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Lineas" Relationship="Model1.FacturaLinea" FromRole="Factura" ToRole="Linea" />
+          <NavigationProperty Name="Usuario" Relationship="Model1.UsuarioFactura" FromRole="Factura" ToRole="Usuario" />
+          <Property Name="UsuarioId" Nullable="false" Type="Int32" />
+          <Property Name="Total" Type="Decimal" Nullable="false" DefaultValue="0" />
+          <NavigationProperty Name="Delivery" Relationship="Model1.FacturaDelivery" FromRole="Factura" ToRole="Delivery" />
+          <NavigationProperty Name="Tarjeta" Relationship="Model1.FacturaTarjeta" FromRole="Factura" ToRole="Tarjeta" />
+          <Property Name="TarjetaId" Type="Int32" Nullable="false" />
+          <Property Name="PagoProcesado" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" DefaultValue="0" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
+          <Property Name="CanitidadRecetasBlancas" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="CantidadRecetasControladas" Type="Int16" Nullable="false" DefaultValue="0" />
+          <Property Name="DescuentoAplicado" Type="Decimal" Nullable="false" DefaultValue="0" />
+        </EntityType>
+        <EntityType Name="Linea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Articulo" Relationship="Model1.ArticuloLinea" FromRole="Linea" ToRole="Articulo" />
+          <NavigationProperty Name="Factura" Relationship="Model1.FacturaLinea" FromRole="Linea" ToRole="Factura" />
+          <Property Name="FacturaId" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int16" Nullable="false" DefaultValue="1" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" DefaultValue="0" />
+        </EntityType>
+        <Association Name="ArticuloLinea">
+          <End Type="Model1.Articulo" Role="Articulo" Multiplicity="1" />
+          <End Type="Model1.Linea" Role="Linea" Multiplicity="0..1" />
+        </Association>
+        <Association Name="FacturaLinea">
+          <End Type="Model1.Factura" Role="Factura" Multiplicity="1" />
+          <End Type="Model1.Linea" Role="Linea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Linea">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Roles" Type="String" Nullable="false" />
+          <NavigationProperty Name="Facturas" Relationship="Model1.UsuarioFactura" FromRole="Usuario" ToRole="Factura" />
+        </EntityType>
+        <Association Name="UsuarioFactura">
+          <End Type="Model1.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Model1.Factura" Role="Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Direccion" Type="String" Nullable="false" />
+          <Property Name="FechaEntregado" Type="DateTime" Nullable="true" />
+          <Property Name="FirmaRecibido" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <NavigationProperty Name="Cadete" Relationship="Model1.CadeteDelivery" FromRole="Delivery" ToRole="Cadete" />
+          <NavigationProperty Name="Factura" Relationship="Model1.FacturaDelivery" FromRole="Delivery" ToRole="Factura" />
+        </EntityType>
+        <EntityType Name="Cadete">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" />
+          <NavigationProperty Name="Deliveries" Relationship="Model1.CadeteDelivery" FromRole="Cadete" ToRole="Delivery" />
+        </EntityType>
+        <Association Name="CadeteDelivery">
+          <End Type="Model1.Cadete" Role="Cadete" Multiplicity="1" />
+          <End Type="Model1.Delivery" Role="Delivery" Multiplicity="0..1" />
+        </Association>
+        <Association Name="FacturaDelivery">
+          <End Type="Model1.Factura" Role="Factura" Multiplicity="1" />
+          <End Type="Model1.Delivery" Role="Delivery" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <NavigationProperty Name="NoRemedios" Relationship="Model1.CategoriaNoMedicamento" FromRole="Categoria" ToRole="NoRemedio" />
+        </EntityType>
+        <Association Name="CategoriaNoMedicamento">
+          <End Type="Model1.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="Model1.NoMedicamento" Role="NoRemedio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NoRemedio">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tarjeta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marca" Type="String" Nullable="false" />
+          <NavigationProperty Name="Facturas" Relationship="Model1.FacturaTarjeta" FromRole="Tarjeta" ToRole="Factura" />
+          <Property Name="Descuento" Type="Decimal" Nullable="false" DefaultValue="0" />
+        </EntityType>
+        <Association Name="FacturaTarjeta">
+          <End Type="Model1.Factura" Role="Factura" Multiplicity="*" />
+          <End Type="Model1.Tarjeta" Role="Tarjeta" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Tarjeta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="TarjetaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="ArticuloSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Articulo)">
+        <MappingFragment StoreEntitySet="ArticuloSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="CantidadEnStock" ColumnName="CantidadEnStock" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.NoMedicamento)">
+        <MappingFragment StoreEntitySet="ArticuloSet_NoMedicamento">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Medicamento)">
+        <MappingFragment StoreEntitySet="ArticuloSet_Medicamento">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Composicion" ColumnName="Composicion" />
+          <ScalarProperty Name="Indicaciones" ColumnName="Indicaciones" />
+          <ScalarProperty Name="Presentacion" ColumnName="Presentacion" />
+          <ScalarProperty Name="RequiereRecetaControlada" ColumnName="RequiereRecetaControlada" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FacturaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Factura)">
+        <MappingFragment StoreEntitySet="FacturaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="TarjetaId" ColumnName="TarjetaId" />
+          <ScalarProperty Name="PagoProcesado" ColumnName="PagoProcesado" />
+          <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="CanitidadRecetasBlancas" ColumnName="CanitidadRecetasBlancas" />
+          <ScalarProperty Name="CantidadRecetasControladas" ColumnName="CantidadRecetasControladas" />
+          <ScalarProperty Name="DescuentoAplicado" ColumnName="DescuentoAplicado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LineaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Linea)">
+        <MappingFragment StoreEntitySet="LineaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FacturaId" ColumnName="FacturaId" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Usuario)">
+        <MappingFragment StoreEntitySet="UsuarioSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeliverySet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Delivery)">
+        <MappingFragment StoreEntitySet="DeliverySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="FechaEntregado" ColumnName="FechaEntregado" />
+          <ScalarProperty Name="FirmaRecibido" ColumnName="FirmaRecibido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CadeteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Cadete)">
+        <MappingFragment StoreEntitySet="CadeteSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategoriaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Categoria)">
+        <MappingFragment StoreEntitySet="CategoriaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TarjetaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Tarjeta)">
+        <MappingFragment StoreEntitySet="TarjetaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ArticuloLinea" TypeName="Model1.ArticuloLinea" StoreEntitySet="LineaSet">
+      <EndProperty Name="Articulo">
+        <ScalarProperty Name="Id" ColumnName="Articulo_Id" />
+      </EndProperty>
+      <EndProperty Name="Linea">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CadeteDelivery" TypeName="Model1.CadeteDelivery" StoreEntitySet="DeliverySet">
+      <EndProperty Name="Cadete">
+        <ScalarProperty Name="Id" ColumnName="Cadete_Id" />
+      </EndProperty>
+      <EndProperty Name="Delivery">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FacturaDelivery" TypeName="Model1.FacturaDelivery" StoreEntitySet="FacturaSet">
+      <EndProperty Name="Delivery">
+        <ScalarProperty Name="Id" ColumnName="Delivery_Id" />
+      </EndProperty>
+      <EndProperty Name="Factura">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
